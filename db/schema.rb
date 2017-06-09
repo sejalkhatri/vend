@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20170605044637) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "order_statuses"
-  add_foreign_key "vendors", "vendingmachines"
+  add_foreign_key "vendors", "vendingmachines", column: "vendingmachines_id"
   add_foreign_key "vm_details", "products"
   add_foreign_key "vm_details", "vendingmachines"
 end
