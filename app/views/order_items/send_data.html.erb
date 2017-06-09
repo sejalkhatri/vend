@@ -1,0 +1,44 @@
+<h5> Send data </h5>
+<%
+  require 'open-uri'
+  open("https://api.thingspeak.com/update?api_key=73NIYBQJIVD8F8QJ&field1=1")
+%>
+<% @order.order_items.each  do  |i| %>
+<tr>
+  <td><%= Product.find(i.product_id).name  %></td>
+  <td><%= i.quantity %></td>
+</tr>
+<%
+if Product.find(i.product_id).name == "CocaCola"
+  puts "--------------CocaCola----------"
+  require 'open-uri'
+  value3 = i.quantity
+  puts value3
+  open("https://api.thingspeak.com/update?api_key=Y0S58JCEY5F2P5J6&field1=#{value3}")
+# else
+#   puts "ALSO HEERE CHUTIYA BANAYA LOOP NE"
+#   open("https://api.thingspeak.com/update?api_key=Y0S58JCEY5F2P5J6&field1=0")
+end
+
+if Product.find(i.product_id).name == "Pepsi"
+  require 'open-uri'
+  puts "-----------------Pepsi----------------"
+  value2 = i.quantity
+  puts value2
+  open("https://api.thingspeak.com/update?api_key=396L15QTL43AM94L&field1= #{value2}")
+# else
+#   open("https://api.thingspeak.com/update?api_key=396L15QTL43AM94L&field1= 0")
+end
+
+if Product.find(i.product_id).name == "Bisleri"
+  puts "--------------Bisleri----------"
+  require 'open-uri'
+  value4 = i.quantity
+  puts value4
+  open("https://api.thingspeak.com/update?api_key=YE16Y908LA2KL5NL&field1=#{value4}")
+# else
+#   open("https://api.thingspeak.com/update?api_key=YE16Y908LA2KL5NL&field1=0")
+end
+%>
+<% end %>
+<%= link_to "Done", controller: "products", action: "index", class: "btn btn-link" %>

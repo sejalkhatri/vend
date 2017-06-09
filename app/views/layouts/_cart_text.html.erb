@@ -1,0 +1,1 @@
+<%= link_to "PROCEED with #{current_order.order_items.size} Items in Cart (PAY -- #{number_to_currency current_order.subtotal} )", controller: "vm_details", action: "subtract_quantity", class: "btn btn-link" %>

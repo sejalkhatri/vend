@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+  <div class="row">
+    <div class="col-xs-6">
+      <h1><%= link_to "Vending Machine", root_path %></h1>
+    </div>
+  </div>
+  <hr>
+<%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
+                                %>
+
+<div class="container-fluid">
+    <!--form role="form"-->
+        <div class="info text-center">
+            <h1 class="text-center" style="color: #000;margin-top: 90px;">Stock List </h1>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-md-8 text-left">
+                <div class="form-group">
+                    <table class="table table-hover" id= "table_body">
+                        <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <% @vm_details.each  do  |vmd| %>
+                        <tr>
+                          <td><%= vmd.product_id %></td>
+                          <td><%= Product.find(vmd.product_id).name %></td>
+                          <td><%= vmd.quantity %></td>
+                        </tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
+</div>
+
+<script type="text/javascript">
+
+ function Globals(){
+        var self = this;
+
+        self.sort_by = function(){
+                 $(document).on('click',"#sort_by",function() {
+                        ajax_sorting_request();
+                    });
+                    function ajax_sorting_request()
+                    {
+                        console.log("in ajax sorting request");
+
+                        var post_data = {
+                        utf8: $("[name='utf8']").val(),
+                        authenticity_token: $("[name='authenticity_token']").val(),
+                        sort_type : $("#sort_by").val(),
+                        };
+                        $.ajax({
+                            url: 'sort',
+                            type: 'POST',
+                            data: post_data ,
+                            dataType: 'text',
+                            success: function(data)
+                                {
+                                    $("#table_body").html(data);
+                                    // console.log(data);
+                                }
+                            }).fail(function(data){
+                                console.log("fail");
+                                console.log(data);
+                            });
+                        console.log($("#sort_by").val());
+                    }
+
+                }
+
+    }
+
+    var globals = new Globals();
+    // globals.filter_by_date();
+     globals.sort_by();
+
+
+</script>
+
+
+</body>
+</html>

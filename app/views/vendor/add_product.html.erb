@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+  <div class="row">
+    <div class="col-xs-6">
+      <h1><%= link_to "Vending Machine", root_path %></h1>
+    </div>
+  </div>
+  <hr>
+
+<div class="container-fluid">
+    <%= form_for(:product,:url=>{:action => 'create', :vendingmachines_id => params[:vendingmachines_id]})  do |i|%>
+        <div class="info text-center">
+            <h1 class="text-center" style="color: #000;margin-top: 90px;">Add products</h1>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-xs-12 col-md-4 text-left" style="border: 1px solid black;">
+                <div class="form-group">
+                    <br>
+                    <h4 style="text-align: left;">Product name :</h4>
+                    <input required autocomplete="off" type="text" class="form-control" id="name" name="product[name]" placeholder="Product Name">
+                </div>
+
+                <div class="form-group">
+                    <h4 style="text-align: left;">Price :</h4>
+                      <input required autocomplete="off" type="number" class="form-control" id="price" name="product[price]">
+                </div>
+
+                <div class="form-group">
+                    <h4 style="text-align: left;">Quantity :</h4>
+                      <input required autocomplete="off" type="number" class="form-control" id="quantity" name="product[quantity]">
+                </div>
+
+                <center>
+                    <button type="submit" name="commit" value="submit" class="btn btn-default">Submit
+                    </button>
+                </center>
+                <br>
+            </div>
+        </div>
+    <% end %>
+    <%= form_for(:product,:url=>{:controller =>'vm_details', :action => 'list_products', :vendingmachines_id => params[:vendingmachines_id]})  do |i|%>
+      <center>
+          <button type="submit" name="commit" value="submit" class="btn btn-default">DONE
+          </button>
+      </center>
+    <% end %>
+</div>
+
+</body>
+</html>
